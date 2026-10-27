@@ -4,8 +4,10 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
+import ude.bdpractico5.logica.excepciones.AlumnoException;
 import ude.bdpractico5.logica.excepciones.NotasException;
 import ude.bdpractico5.logica.excepciones.PersistenciaException;
+import ude.bdpractico5.logica.excepciones.RegistroException;
 import ude.bdpractico5.logica.valueObjects.VOActividad;
 import ude.bdpractico5.logica.valueObjects.VOAlumno;
 import ude.bdpractico5.logica.valueObjects.VOAlumnoProm;
@@ -36,7 +38,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
             throws NotasException, PersistenciaException, RemoteException {
         DAOAlumnos dao = new DAOAlumnos();
         if (dao.member(voA.getCedula())) {
-            throw new PersistenciaException("El alumno ya existe");
+            throw new AlumnoException("Ya existe un alumno con la cedula " + voA.getCedula());
         }
         
         dao.insert(new Alumno(voA.getCedula(), voA.getNombre(), voA.getApellido()));
@@ -48,7 +50,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
         DAOAlumnos dao = new DAOAlumnos();
 
         if (!dao.member(cedA)) {
-            throw new PersistenciaException("No existe el alumno");
+            throw new AlumnoException("No existe un alumno con la cedula " + cedA);
         }
 
         Alumno alu = dao.find(cedA);
@@ -76,10 +78,14 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
         DAOAlumnos dao = new DAOAlumnos();
 
         if (!dao.member(cedA)) {
-            throw new PersistenciaException("No existe el alumno");
+            throw new AlumnoException("No existe un alumno con la cedula " + cedA);
         }
 
         Alumno alu = dao.find(cedA);
+
+        if (numR < 1 || numR > alu.cantidadRegistros()) {
+            throw new RegistroException("El alumno " + cedA + " no tiene un registro con numero " + numR);
+        }
 
         return alu.obtenRegistro(numR);
     }
@@ -90,7 +96,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
         DAOAlumnos dao = new DAOAlumnos();
 
         if (!dao.member(cedA)) {
-            throw new PersistenciaException("No existe el alumno");
+            throw new AlumnoException("No existe un alumno con la cedula " + cedA);
         }
         
         return new DAOAlumnos().find(cedA).listarRegistros();
@@ -102,7 +108,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
         DAOAlumnos dao = new DAOAlumnos();
 
         if (!dao.member(cedA)) {
-            throw new PersistenciaException("No existe el alumno");
+            throw new AlumnoException("No existe un alumno con la cedula " + cedA);
         }
 
         Alumno alu = dao.find(cedA);
@@ -112,7 +118,13 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
     @Override
     public VOAlumnoProm alumnoMayorPromedio()
             throws NotasException, PersistenciaException, RemoteException {
-        return new DAOAlumnos().alumnoMayorPromedio();
+        DAOAlumnos dao = new DAOAlumnos();
+
+        if (dao.esVacio()) {
+            throw new AlumnoException("No hay alumnos registrados");
+        }
+
+        return dao.alumnoMayorPromedio();
     }
 
     @Override
@@ -127,10 +139,15 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
         DAOAlumnos dao = new DAOAlumnos();
 
         if (!dao.member(cedA)) {
-            throw new PersistenciaException("No existe el alumno");
+            throw new AlumnoException("No existe un alumno con la cedula " + cedA);
         }
 
         Alumno alu = dao.find(cedA);
+
+        if (alu.cantidadRegistros() == 0) {
+            throw new RegistroException("El alumno " + cedA + " no tiene ninguna actividad registrada");
+        }
+
         return alu.actividadMasCursada();
     }
 }
