@@ -62,7 +62,7 @@ public class Consultas {
 
     public String obtenerRegistro() {
         return """
-               SELECT actividad, nota
+               SELECT numero, actividad, nota
                FROM Registros
                WHERE cedAlu = ?
                  AND numero = ?
@@ -71,10 +71,10 @@ public class Consultas {
 
     public String cantidadRegistros() {
         return """
-                SELECT COUNT(*) 
-                FROM Registros 
-                WHERE cedA = ?
-            """;
+               SELECT COUNT(*) AS cantidad
+               FROM Registros
+               WHERE cedAlu = ?
+               """;
     }
 
     public String listarRegistros() {

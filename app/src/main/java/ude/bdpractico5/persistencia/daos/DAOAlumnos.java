@@ -74,7 +74,7 @@ public class DAOAlumnos {
             pstmt.setInt(1, cedA);
             ResultSet rs = pstmt.executeQuery();
 
-            if (rs.next()) alu = new Alumno(rs.getInt("cédula"), rs.getString("nombre"), rs.getString("apellido"));
+            if (rs.next()) alu = new Alumno(rs.getInt("cedula"), rs.getString("nombre"), rs.getString("apellido"));
 
 
         } catch (SQLException e) {
@@ -123,15 +123,16 @@ public class DAOAlumnos {
     public VOAlumnoProm alumnoMayorPromedio() throws PersistenciaException {
         Alumno mejor = null;
         double mayor = 0;
+        List<Alumno> alumnos = listarAlumnos();
         try (Connection con =  DriverManager.getConnection(url, usr, password);
             PreparedStatement pstmt = con.prepareStatement(new Consultas().promedioNotas())) {
-                
-            for (Alumno a : listarAlumnos()) {
-                int prom;
+
+            for (Alumno a : alumnos) {
+                double prom;
                 pstmt.setInt(1, a.getCedula());
 
                 try (ResultSet rs = pstmt.executeQuery()) {
-                    prom = rs.next() ? rs.getInt("promedio") : 0;
+                    prom = rs.next() ? rs.getDouble("promedio") : 0;
                 }
 
                 if (mejor == null || prom > mayor) {
@@ -150,9 +151,9 @@ public class DAOAlumnos {
 
     public int contarAlumnos(String act, int nota) throws PersistenciaException {
         int cant = 0;
-        try {
-            Connection con = DriverManager.getConnection(url, usr, password);
-            PreparedStatement pstmt = con.prepareStatement(new Consultas().contarAlumnos());
+        try (Connection con = DriverManager.getConnection(url, usr, password);
+            PreparedStatement pstmt = con.prepareStatement(new Consultas().contarAlumnos());) {
+
             pstmt.setString(1, act);
             pstmt.setInt(2, nota);
             try (ResultSet rs = pstmt.executeQuery()) {

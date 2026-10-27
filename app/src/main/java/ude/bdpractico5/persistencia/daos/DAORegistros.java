@@ -76,14 +76,13 @@ public class DAORegistros
 
 
     public void insback(Registro reg) throws PersistenciaException {
-        try
-        { 
-             Connection con = DriverManager.getConnection(url, usr, password);
-             PreparedStatement pstmt = con.prepareStatement(new Consultas().insertarRegistro());
-            pstmt.setInt(1, cedAlumno);
-            pstmt.setInt(2, reg.getNumero());
-            pstmt.setInt(3, reg.getNota());
-            pstmt.setString(4, reg.getActividad());
+        try (Connection con = DriverManager.getConnection(url, usr, password);
+             PreparedStatement pstmt = con.prepareStatement(new Consultas().insertarRegistro());)
+        {
+            pstmt.setInt(1, reg.getNumero());
+            pstmt.setInt(2, cedAlumno);
+            pstmt.setString(3, reg.getActividad());
+            pstmt.setInt(4, reg.getNota());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             throw new PersistenciaException("Error de acceso a los datos (insertar registro)");
@@ -112,10 +111,9 @@ public class DAORegistros
 
     public List<VORegistroListado> listarRegistros() throws PersistenciaException {
         List<VORegistroListado> lista = new ArrayList<VORegistroListado>();
-        try 
+        try (Connection con = DriverManager.getConnection(url, usr, password);
+             PreparedStatement pstmt = con.prepareStatement(new Consultas().listarRegistros());)
         {
-        Connection con = DriverManager.getConnection(url, usr, password);
-        PreparedStatement pstmt = con.prepareStatement(new Consultas().listarRegistros());
             pstmt.setInt(1, cedAlumno);
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next())
@@ -146,15 +144,14 @@ public class DAORegistros
 
      public VOActividad actividadMasCursada() throws PersistenciaException {
         VOActividad act = null;
-        try 
+        try (Connection con = DriverManager.getConnection(url, usr, password);
+             PreparedStatement pstmt = con.prepareStatement(new Consultas().actividadMasCursada());)
         {
-            Connection con = DriverManager.getConnection(url, usr, password);
-            PreparedStatement pstmt = con.prepareStatement(new Consultas().actividadMasCursada());
             pstmt.setInt(1, cedAlumno);
             try (ResultSet rs = pstmt.executeQuery();)
             {
                 if (rs.next())
-                    act = new VOActividad(rs.getString("actividad"), rs.getInt("cant"));
+                    act = new VOActividad(rs.getString("actividad"), rs.getInt("veces"));
             }
         } catch (SQLException e) {
             throw new PersistenciaException("Error de acceso a los datos (actividad más cursada)");
