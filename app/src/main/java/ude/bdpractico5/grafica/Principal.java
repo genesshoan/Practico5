@@ -1,4 +1,4 @@
-package grafica;
+package ude.bdpractico5.grafica;
 
 import java.io.InputStream;
 import java.rmi.registry.LocateRegistry;
@@ -9,8 +9,8 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
-import grafica.ventanas.VentanaPrincipal;
-import logicaPersistencia.IFachada;
+import ude.bdpractico5.grafica.ventanas.VentanaPrincipal;
+import ude.bdpractico5.logica.IFachada;
 
 /**
  * Punto de entrada de la capa grafica (equipo Usuario).

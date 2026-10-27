@@ -1,4 +1,4 @@
-package grafica.ventanas;
+package ude.bdpractico5.grafica.ventanas;
 
 import java.awt.Component;
 import java.awt.Dimension;

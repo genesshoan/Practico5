@@ -1,8 +1,8 @@
-package grafica.controladores;
+package ude.bdpractico5.grafica.controladores;
 
-import grafica.ventanas.VentanaContarAlumnos;
-import logicaPersistencia.IFachada;
-import logicaPersistencia.excepciones.PersistenciaException;
+import ude.bdpractico5.grafica.ventanas.VentanaContarAlumnos;
+import ude.bdpractico5.logica.IFachada;
+import ude.bdpractico5.logica.excepciones.PersistenciaException;
 
 /** Controlador del requerimiento "contar alumnos". */
 public class ControladorContarAlumnos {

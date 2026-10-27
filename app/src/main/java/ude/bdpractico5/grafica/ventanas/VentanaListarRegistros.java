@@ -1,4 +1,4 @@
-package grafica.ventanas;
+package ude.bdpractico5.grafica.ventanas;
 
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -11,9 +11,9 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-import grafica.controladores.ControladorListarRegistros;
-import logicaPersistencia.IFachada;
-import logicaPersistencia.valueObjects.VORegistroListado;
+import ude.bdpractico5.grafica.controladores.ControladorListarRegistros;
+import ude.bdpractico5.logica.IFachada;
+import ude.bdpractico5.logica.valueObjects.VORegistroListado;
 
 /** Vista del requerimiento "listar registros de un alumno". */
 public class VentanaListarRegistros extends VentanaBase {

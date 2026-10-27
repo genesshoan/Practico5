@@ -19,7 +19,7 @@ import ude.bdpractico5.logica.valueObjects.VORegistroListado;
 public interface IFachada extends Remote {
 
     void nuevoAlumno(VOAlumno voA)
-            throws NotasException, PersistenciaException, RemoteException;
+                throws NotasException, PersistenciaException, RemoteException;
 
     void registrarNota(int cedA, VORegistro voR)
             throws NotasException, PersistenciaException, RemoteException;

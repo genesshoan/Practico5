@@ -1,9 +1,9 @@
-package grafica.controladores;
+package ude.bdpractico5.grafica.controladores;
 
-import grafica.ventanas.VentanaPromedioNotas;
-import logicaPersistencia.IFachada;
-import logicaPersistencia.excepciones.NotasException;
-import logicaPersistencia.excepciones.PersistenciaException;
+import ude.bdpractico5.grafica.ventanas.VentanaPromedioNotas;
+import ude.bdpractico5.logica.IFachada;
+import ude.bdpractico5.logica.excepciones.NotasException;
+import ude.bdpractico5.logica.excepciones.PersistenciaException;
 
 /** Controlador del requerimiento "promedio de notas de un alumno". */
 public class ControladorPromedioNotas {

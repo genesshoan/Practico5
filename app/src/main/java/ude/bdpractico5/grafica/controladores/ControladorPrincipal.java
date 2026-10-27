@@ -1,15 +1,15 @@
-package grafica.controladores;
+package ude.bdpractico5.grafica.controladores;
 
-import grafica.ventanas.VentanaActividadMasCursada;
-import grafica.ventanas.VentanaAlumnoMayorPromedio;
-import grafica.ventanas.VentanaContarAlumnos;
-import grafica.ventanas.VentanaListarAlumnos;
-import grafica.ventanas.VentanaListarRegistros;
-import grafica.ventanas.VentanaNuevoAlumno;
-import grafica.ventanas.VentanaObtenerRegistro;
-import grafica.ventanas.VentanaPromedioNotas;
-import grafica.ventanas.VentanaRegistrarNota;
-import logicaPersistencia.IFachada;
+import ude.bdpractico5.grafica.ventanas.VentanaActividadMasCursada;
+import ude.bdpractico5.grafica.ventanas.VentanaAlumnoMayorPromedio;
+import ude.bdpractico5.grafica.ventanas.VentanaContarAlumnos;
+import ude.bdpractico5.grafica.ventanas.VentanaListarAlumnos;
+import ude.bdpractico5.grafica.ventanas.VentanaListarRegistros;
+import ude.bdpractico5.grafica.ventanas.VentanaNuevoAlumno;
+import ude.bdpractico5.grafica.ventanas.VentanaObtenerRegistro;
+import ude.bdpractico5.grafica.ventanas.VentanaPromedioNotas;
+import ude.bdpractico5.grafica.ventanas.VentanaRegistrarNota;
+import ude.bdpractico5.logica.IFachada;
 
 /**
  * Controlador del menu principal: abre la ventana de cada requerimiento,

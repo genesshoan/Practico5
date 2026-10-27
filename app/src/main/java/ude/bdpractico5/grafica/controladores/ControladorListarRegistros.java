@@ -1,9 +1,9 @@
-package grafica.controladores;
+package ude.bdpractico5.grafica.controladores;
 
-import grafica.ventanas.VentanaListarRegistros;
-import logicaPersistencia.IFachada;
-import logicaPersistencia.excepciones.NotasException;
-import logicaPersistencia.excepciones.PersistenciaException;
+import ude.bdpractico5.grafica.ventanas.VentanaListarRegistros;
+import ude.bdpractico5.logica.IFachada;
+import ude.bdpractico5.logica.excepciones.NotasException;
+import ude.bdpractico5.logica.excepciones.PersistenciaException;
 
 /** Controlador del requerimiento "listar registros de un alumno". */
 public class ControladorListarRegistros {

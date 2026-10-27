@@ -1,10 +1,10 @@
-package grafica.controladores;
+package ude.bdpractico5.grafica.controladores;
 
-import grafica.ventanas.VentanaRegistrarNota;
-import logicaPersistencia.IFachada;
-import logicaPersistencia.excepciones.NotasException;
-import logicaPersistencia.excepciones.PersistenciaException;
-import logicaPersistencia.valueObjects.VORegistro;
+import ude.bdpractico5.grafica.ventanas.VentanaRegistrarNota;
+import ude.bdpractico5.logica.IFachada;
+import ude.bdpractico5.logica.excepciones.NotasException;
+import ude.bdpractico5.logica.excepciones.PersistenciaException;
+import ude.bdpractico5.logica.valueObjects.VORegistro;
 
 /** Controlador del requerimiento "registrar nota". */
 public class ControladorRegistrarNota {

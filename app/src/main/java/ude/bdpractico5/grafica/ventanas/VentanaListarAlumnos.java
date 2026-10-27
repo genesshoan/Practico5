@@ -1,4 +1,4 @@
-package grafica.ventanas;
+package ude.bdpractico5.grafica.ventanas;
 
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -10,9 +10,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import grafica.controladores.ControladorListarAlumnos;
-import logicaPersistencia.IFachada;
-import logicaPersistencia.valueObjects.VOAlumno;
+import ude.bdpractico5.grafica.controladores.ControladorListarAlumnos;
+import ude.bdpractico5.logica.IFachada;
+import ude.bdpractico5.logica.valueObjects.VOAlumno;
 
 /** Vista del requerimiento "listar alumnos" (ordenados por cedula). */
 public class VentanaListarAlumnos extends VentanaBase {

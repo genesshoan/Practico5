@@ -1,4 +1,4 @@
-package grafica.ventanas;
+package ude.bdpractico5.grafica.ventanas;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -6,8 +6,8 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 
-import grafica.controladores.ControladorPromedioNotas;
-import logicaPersistencia.IFachada;
+import ude.bdpractico5.grafica.controladores.ControladorPromedioNotas;
+import ude.bdpractico5.logica.IFachada;
 
 /** Vista del requerimiento "promedio de notas de un alumno". */
 public class VentanaPromedioNotas extends VentanaBase {

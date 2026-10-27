@@ -1,4 +1,4 @@
-package grafica.ventanas;
+package ude.bdpractico5.grafica.ventanas;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -6,9 +6,9 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 
-import grafica.controladores.ControladorAlumnoMayorPromedio;
-import logicaPersistencia.IFachada;
-import logicaPersistencia.valueObjects.VOAlumnoProm;
+import ude.bdpractico5.grafica.controladores.ControladorAlumnoMayorPromedio;
+import ude.bdpractico5.logica.IFachada;
+import ude.bdpractico5.logica.valueObjects.VOAlumnoProm;
 
 /** Vista del requerimiento "alumno con mayor promedio". */
 public class VentanaAlumnoMayorPromedio extends VentanaBase {

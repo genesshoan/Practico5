@@ -1,4 +1,4 @@
-package grafica.ventanas;
+package ude.bdpractico5.grafica.ventanas;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -6,9 +6,9 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 
-import grafica.controladores.ControladorObtenerRegistro;
-import logicaPersistencia.IFachada;
-import logicaPersistencia.valueObjects.VORegistro;
+import ude.bdpractico5.grafica.controladores.ControladorObtenerRegistro;
+import ude.bdpractico5.logica.IFachada;
+import ude.bdpractico5.logica.valueObjects.VORegistro;
 
 /** Vista del requerimiento "obtener registro". */
 public class VentanaObtenerRegistro extends VentanaBase {
