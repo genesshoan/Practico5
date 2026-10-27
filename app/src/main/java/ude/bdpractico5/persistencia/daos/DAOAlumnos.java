@@ -16,29 +16,16 @@ import ude.bdpractico5.logica.Alumno;
 import ude.bdpractico5.logica.excepciones.PersistenciaException;
 import ude.bdpractico5.logica.valueObjects.VOAlumnoProm;
 import ude.bdpractico5.persistencia.consultas.Consultas;
+import ude.bdpractico5.persistencia.poolConexiones.IConexion;
+import ude.bdpractico5.persistencia.poolConexiones.Conexion;
 
 public class DAOAlumnos {
 
-    String url, usr, password;
-
-    public DAOAlumnos() throws PersistenciaException {
-        Properties props = new Properties();
-        try (FileInputStream in = new FileInputStream("config.properties")) {
-            props.load(in);
-
-            this.url = props.getProperty("url");
-            this.usr = props.getProperty("user");
-            this.password = props.getProperty("password");
-
-        } catch (IOException e) {
-            throw new PersistenciaException("No se pudo leer config.properties");
-        }
-    }
-
-    public boolean member(int ced) throws PersistenciaException {
+    public boolean member(IConexion icon, int ced) throws PersistenciaException {
         boolean existeCedula = false;
-        try (Connection con = DriverManager.getConnection(url, usr, password);
-            PreparedStatement pstmt = con.prepareStatement(new Consultas().existeAlumno());) {
+        Connection con = ((Conexion) icon).getConnection();
+
+        try (PreparedStatement pstmt = con.prepareStatement(new Consultas().existeAlumno());) {
                            
             pstmt.setInt(1, ced);
 
@@ -52,9 +39,10 @@ public class DAOAlumnos {
         return existeCedula;
     }
 
-    public void insert(Alumno alumno) throws PersistenciaException {
-        try (Connection con = DriverManager.getConnection(url, usr, password);
-            PreparedStatement pstmt = con.prepareStatement(new Consultas().insertarAlumno());) {
+    public void insert(IConexion icon, Alumno alumno) throws PersistenciaException {
+        Connection con = ((Conexion) icon).getConnection();
+        
+        try (PreparedStatement pstmt = con.prepareStatement(new Consultas().insertarAlumno());) {
             
             pstmt.setInt(1, alumno.getCedula());
             pstmt.setString(2, alumno.getNombre());
@@ -65,17 +53,21 @@ public class DAOAlumnos {
         }
     }
 
-    public Alumno find(int cedA) throws PersistenciaException {
+    public Alumno find(IConexion icon, int cedA) throws PersistenciaException {
         Alumno alu = null;
+        Connection con = ((Conexion) icon).getConnection();
 
-        try (Connection con = DriverManager.getConnection(url, usr, password);
-            PreparedStatement pstmt = con.prepareStatement(new Consultas().obtenerAlumno());) {
+        try (PreparedStatement pstmt = con.prepareStatement(new Consultas().obtenerAlumno());) {
 
             pstmt.setInt(1, cedA);
             ResultSet rs = pstmt.executeQuery();
 
-            if (rs.next()) alu = new Alumno(rs.getInt("cedula"), rs.getString("nombre"), rs.getString("apellido"));
-
+            if (rs.next()) {
+                alu = new Alumno(
+                        rs.getInt("cedula"), 
+                        rs.getString("nombre"), 
+                        rs.getString("apellido"));
+            }
 
         } catch (SQLException e) {
             throw new PersistenciaException("Error al obtener alumno");
@@ -84,15 +76,15 @@ public class DAOAlumnos {
         return alu;
     }
 
-    public boolean esVacio() throws PersistenciaException {
+    public boolean esVacio(IConexion icon) throws PersistenciaException {
         boolean vacio = true;
+        Connection con = ((Conexion) icon).getConnection();
         
-        try (Connection con = DriverManager.getConnection(url, usr, password);
-            PreparedStatement pstmt = con.prepareStatement(new Consultas().cantidadAlumnos());
+        try (PreparedStatement pstmt = con.prepareStatement(new Consultas().cantidadAlumnos());
             ResultSet rs = pstmt.executeQuery();) {
             
-            if (rs.next()) vacio = rs.getInt(1) == 0;
-
+            if (rs.next()) 
+                vacio = rs.getInt(1) == 0;
         } catch (SQLException e) {
             throw new PersistenciaException("Error de acceso a los datos (esVacio)");
         }
@@ -100,11 +92,10 @@ public class DAOAlumnos {
         return vacio;
     }
 
-    public List<Alumno> listarAlumnos() throws PersistenciaException {
+    public List<Alumno> listarAlumnos(IConexion icon) throws PersistenciaException {
         List<Alumno> lista = new LinkedList<Alumno>();
-
-        try (Connection con = DriverManager.getConnection(url, usr, password);
-            Statement stmt = con.createStatement();
+        Connection con = ((Conexion) icon).getConnection();
+        try (Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(new Consultas().listarAlumnos());) {
             
             while (rs.next()) {
@@ -120,12 +111,12 @@ public class DAOAlumnos {
         return lista;
     }
 
-    public VOAlumnoProm alumnoMayorPromedio() throws PersistenciaException {
+    public VOAlumnoProm alumnoMayorPromedio(IConexion icon) throws PersistenciaException {
         Alumno mejor = null;
         double mayor = 0;
-        List<Alumno> alumnos = listarAlumnos();
-        try (Connection con =  DriverManager.getConnection(url, usr, password);
-            PreparedStatement pstmt = con.prepareStatement(new Consultas().promedioNotas())) {
+        List<Alumno> alumnos = listarAlumnos(icon);
+        Connection con = ((Conexion) icon).getConnection();
+        try (PreparedStatement pstmt = con.prepareStatement(new Consultas().promedioNotas())) {
 
             for (Alumno a : alumnos) {
                 double prom;
@@ -149,10 +140,10 @@ public class DAOAlumnos {
         return new VOAlumnoProm(mejor.getCedula(), mejor.getNombre(), mejor.getApellido(), mayor);
     }
 
-    public int contarAlumnos(String act, int nota) throws PersistenciaException {
+    public int contarAlumnos(IConexion icon, String act, int nota) throws PersistenciaException {
         int cant = 0;
-        try (Connection con = DriverManager.getConnection(url, usr, password);
-            PreparedStatement pstmt = con.prepareStatement(new Consultas().contarAlumnos());) {
+        Connection con = ((Conexion) icon).getConnection();
+        try (PreparedStatement pstmt = con.prepareStatement(new Consultas().contarAlumnos());) {
 
             pstmt.setString(1, act);
             pstmt.setInt(2, nota);
@@ -165,3 +156,4 @@ public class DAOAlumnos {
         return cant;
     }
 }
+

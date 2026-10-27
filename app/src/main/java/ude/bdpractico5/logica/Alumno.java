@@ -8,6 +8,7 @@ import ude.bdpractico5.logica.valueObjects.VOActividad;
 import ude.bdpractico5.logica.valueObjects.VORegistro;
 import ude.bdpractico5.logica.valueObjects.VORegistroListado;
 import ude.bdpractico5.persistencia.daos.DAORegistros;
+import ude.bdpractico5.persistencia.poolConexiones.IConexion;
 
 public class Alumno implements Serializable {
 
@@ -37,31 +38,31 @@ public class Alumno implements Serializable {
         return apellido;
     }
 
-    public int cantidadRegistros() throws PersistenciaException {
-        return secuencia.largo();
+    public int cantidadRegistros(IConexion icon) throws PersistenciaException {
+        return secuencia.largo(icon);
     }
 
-    public void agregarRegistro(Registro reg) throws PersistenciaException {
-        secuencia.insback(reg);
+    public void agregarRegistro(IConexion icon, Registro reg) throws PersistenciaException {
+        secuencia.insback(icon, reg);
     }
 
-    public VORegistro obtenRegistro(int numR) throws PersistenciaException {
-        Registro reg = secuencia.kesimo(numR);
+    public VORegistro obtenRegistro(IConexion icon, int numR) throws PersistenciaException {
+        Registro reg = secuencia.kesimo(icon, numR);
         if (reg == null) 
             return null;
 
         return new VORegistro(reg.getActividad(), reg.getNota());
     }
 
-    public List<VORegistroListado> listarRegistros() throws PersistenciaException {
-        return secuencia.listarRegistros();
+    public List<VORegistroListado> listarRegistros(IConexion icon) throws PersistenciaException {
+        return secuencia.listarRegistros(icon);
     }
 
-    public double promedioNotas() throws PersistenciaException {
-        return secuencia.promedioNotas();
+    public double promedioNotas(IConexion icon) throws PersistenciaException {
+        return secuencia.promedioNotas(icon);
     }
 
-    public VOActividad actividadMasCursada() throws PersistenciaException {
-        return secuencia.actividadMasCursada();
+    public VOActividad actividadMasCursada(IConexion icon) throws PersistenciaException {
+        return secuencia.actividadMasCursada(icon);
     }
 }
