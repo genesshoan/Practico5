@@ -1,0 +1,30 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Servidor RMI (Fachada)",
+            "request": "launch",
+            "mainClass": "ude.bdpractico5.servidor.ServidorRMI",
+            "projectName": "app",
+            "cwd": "${workspaceFolder}/app"
+        },
+        {
+            "type": "java",
+            "name": "Cliente (interfaz grafica)",
+            "request": "launch",
+            "mainClass": "ude.bdpractico5.grafica.Principal",
+            "projectName": "app",
+            "cwd": "${workspaceFolder}/app"
+        }
+    ],
+    "compounds": [
+        {
+            "name": "Servidor + Cliente",
+            "configurations": [
+                "Servidor RMI (Fachada)",
+                "Cliente (interfaz grafica)"
+            ]
+        }
+    ]
+}
