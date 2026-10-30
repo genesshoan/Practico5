@@ -8,7 +8,7 @@ repositories {
 
 // Nextcloud convierte los archivos en placeholders y rompe Gradle
 // ("not a regular file"): la salida de compilacion va fuera del arbol sincronizado.
-layout.buildDirectory = new File(System.getProperty('user.home'), '.gradle-builds/Practico5/app')
+layout.buildDirectory = new File(System.getProperty('user.home'), '.gradle-builds/obligatorio/app')
 
 dependencies {
     testImplementation libs.junit.jupiter

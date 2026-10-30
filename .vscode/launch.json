@@ -5,7 +5,7 @@
             "type": "java",
             "name": "Servidor RMI (Fachada)",
             "request": "launch",
-            "mainClass": "ude.bdpractico5.servidor.ServidorRMI",
+            "mainClass": "ude.obligatorio.servidor.ServidorRMI",
             "projectName": "app",
             "cwd": "${workspaceFolder}/app"
         },
@@ -13,7 +13,7 @@
             "type": "java",
             "name": "Cliente (interfaz grafica)",
             "request": "launch",
-            "mainClass": "ude.bdpractico5.grafica.Principal",
+            "mainClass": "ude.obligatorio.grafica.Principal",
             "projectName": "app",
             "cwd": "${workspaceFolder}/app"
         }
